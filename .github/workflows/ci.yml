@@ -36,8 +36,8 @@ jobs:
     env:
       RIDEDESK_TEST_DATABASE_URL: postgresql+psycopg://ridedesk:ridedesk@localhost:5432/postgres
     steps:
-      - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d  # v10.4.0
         with:
           version: "0.10.9"  # matches ghcr.io/astral-sh/uv:0.10 in backend/Dockerfile
           python-version: "3.12"
@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       - name: Start the stack
         run: docker compose up -d --build --wait --wait-timeout 180
       - name: Call the health endpoint
