@@ -4,16 +4,16 @@
 
 **State:** in progress
 **Updated:** 2026-11-23
-**Now:** Backlog approved. Waiting for approve-start on S-1.
+**Now:** S-1 PR #1 open, waiting for merge.
 **Done:** Stories written from the build prompt's phases 1 to 9. Backlog approved 11/23/2026. One Notion Action Task per story, each under the RideDesk project and the parent task "RideDesk: backlog and build".
-**Next:** S-1 once the backlog is approved.
+**Next:** S-2 (vertical config schema, loader and adapter interfaces) once S-1 merges.
 **Blockers:** S-19 is blocked on the website URL and platform (see `project.md`, Needs from people).
 **Notes:** Tickets: the Notion Action Task "RideDesk: backlog and build" tracks the project. Each story also has its own Notion Action Task, linked on its Ticket line. Stories are not mirrored as GitHub issues. Phase grouping: phase 1 is S-1 to S-3, phase 2 is S-4, phase 3 is S-5 to S-9, phase 4 is S-10, phase 5 is S-11 to S-14, phase 6 is S-15 and S-16, phase 7 is S-17, phase 8 is S-18 and S-19, and phase 9 is S-20.
 
 ## Stories
 
 ### S-1: Backend skeleton, Docker Compose and CI
-Tier: Standard · Depends on: none · Status: in progress · Ticket: [Notion](https://app.notion.com/p/421cb0375bc881d0baf2ca682586a556) · PR: none
+Tier: Standard · Depends on: none · Status: in progress (PR open) · Ticket: [Notion](https://app.notion.com/p/421cb0375bc881d0baf2ca682586a556) · PR: https://github.com/MalTarDesigns/ridedesk/pull/1
 Setup story.
 Outcome: A developer can clone the repo and start the API and Postgres with one command, and every later PR runs lint, type checks and tests in CI.
 
@@ -24,12 +24,12 @@ Acceptance criteria:
 - S-1.AC-4: `.env.example` lists every env var with a placeholder, and no real secret is in the repo.
 
 Subtasks:
-- [ ] Add a `backend/` FastAPI app with a settings module that reads env vars through pydantic-settings
-- [ ] Add SQLAlchemy 2 models, the Alembic setup and the first migration (`businesses`)
-- [ ] Add `docker-compose.yml` with backend and Postgres services and a dev volume
-- [ ] Add the pytest setup with a test database fixture and the health endpoint test
-- [ ] Add a GitHub Actions workflow running ruff, mypy and pytest on each PR
-- [ ] Add `.env.example`, `.gitignore` and a minimal README "Run locally" section
+- [x] Add a `backend/` FastAPI app with a settings module that reads env vars through pydantic-settings
+- [x] Add SQLAlchemy 2 models, the Alembic setup and the first migration (`businesses`)
+- [x] Add `docker-compose.yml` with backend and Postgres services and a dev volume
+- [x] Add the pytest setup with a test database fixture and the health endpoint test
+- [x] Add a GitHub Actions workflow running ruff, mypy and pytest on each PR
+- [x] Add `.env.example`, `.gitignore` and a minimal README "Run locally" section
 
 ### S-2: Vertical config schema, loader and adapter interfaces
 Tier: Standard · Depends on: S-1 · Status: todo · Ticket: [Notion](https://app.notion.com/p/421cb0375bc881889846e1c5cab545ed) · PR: none

@@ -2,13 +2,13 @@
 
 ## Status
 
-**State:** verifying
+**State:** done
 **Updated:** 2026-11-23
-**Now:** Code review by `maltar:code-reviewer`.
-**Done:** Tasks 1 to 7. Local verify green: ruff check, ruff format --check, mypy strict, pytest (7 passed). uvicorn started against the `tmp/` cluster and `/v1/health` returned 200 (`tmp/s1-health-local.txt`).
-**Next:** Address review findings, commit, open the PR, and confirm both CI jobs are green.
+**Now:** PR #1 is open and waiting for merge: https://github.com/MalTarDesigns/ridedesk/pull/1
+**Done:** Tasks 1 to 7, plus the fixes from code review (10 of 12 findings; the default database URL and the CASCADE policy were kept, and CASCADE is now explained in `TenantMixin`). CI run 45257354787 on `4c7d06a`: `backend` and `compose-smoke` both green, with `/v1/health` returning `{"status":"ok","database":"ok"}` from the compose stack. The proof is posted on the PR.
+**Next:** Merge PR #1, then start S-2.
 **Blockers:** None.
-**Notes:** Docker is not installed on the development laptop. Local checks run against a throwaway Postgres 16 cluster started with `initdb` under `tmp/` (no root needed). S-1.AC-1 (`docker compose up`) is proven by a CI job that starts the stack and calls the health endpoint, and that job's log is the proof. The secret-scan pattern `sk_test` gives a false positive on `ridedesk_test_` in `tests/conftest.py`. Installing `httpx2`, which a Starlette deprecation warning suggests, was blocked by the auto-mode classifier, so `httpx` stays and the warning is left visible.
+**Notes:** Docker is not installed on the development laptop. Local checks run against a throwaway Postgres 16 cluster started with `initdb` under `tmp/` (no root needed). S-1.AC-1 (`docker compose up`) is proven by a CI job that starts the stack and calls the health endpoint, and that job's log is the proof. The secret-scan pattern `sk_test` gives a false positive on `ridedesk_test_` in `tests/conftest.py`. Installing `httpx2`, which a Starlette deprecation warning suggests, was blocked by the auto-mode classifier, so `httpx` stays and the warning is left visible. `astral-sh/setup-uv` publishes no floating major tag (`v10`), so both actions are pinned to release commit SHAs.
 
 ## Approach
 
