@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from sqlalchemy import create_engine
 
+from ridedesk.adapters.registry import build_adapters
 from ridedesk.api import v1
 from ridedesk.settings import Settings, get_settings
 
@@ -29,5 +30,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         openapi_url="/v1/openapi.json",
     )
     app.state.engine = engine
+    app.state.adapters = build_adapters(settings)
     app.include_router(v1.router)
     return app
