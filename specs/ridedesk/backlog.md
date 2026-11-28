@@ -32,7 +32,7 @@ Subtasks:
 - [x] Add `.env.example`, `.gitignore` and a minimal README "Run locally" section
 
 ### S-2: Vertical config schema, loader and adapter interfaces
-Tier: Standard · Depends on: S-1 · Status: in progress · Ticket: [Notion](https://app.notion.com/p/421cb0375bc881889846e1c5cab545ed) · PR: none
+Tier: Standard · Depends on: S-1 · Status: in progress (PR open) · Ticket: [Notion](https://app.notion.com/p/421cb0375bc881889846e1c5cab545ed) · PR: https://github.com/MalTarDesigns/ridedesk/pull/2
 Setup story.
 Outcome: The core reads all business rules from `verticals/car_service.yaml` plus database overrides, and every external service has an interface with a working mock.
 

@@ -2,11 +2,11 @@
 
 ## Status
 
-**State:** verifying
+**State:** done
 **Updated:** 2026-11-28
-**Now:** Opening the PR and waiting for CI.
-**Done:** Tasks 1 to 7. Both review rounds fixed (see Notes). Verify green: ruff, ruff format, mypy strict, pytest 58 passed. Smoke run resolved the `car_service` config and applied an override (`tmp/s2-smoke.txt`). Migration `0002` backfills an existing business and downgrades cleanly (`tmp/s2-migration-backfill.txt`). mypy rejects a provider with the wrong signature (`tmp/s2-mypy-probe.txt`).
-**Next:** Address the second review, commit, open the PR, and confirm CI.
+**Now:** PR #2 is open and waiting for merge: https://github.com/MalTarDesigns/ridedesk/pull/2
+**Done:** Tasks 1 to 7. Both review rounds fixed (see Notes). CI run 46150562126 on `f84fb3e`: both jobs green, with 58 tests and 17 contract tests passed. Proof is posted on the PR. Verify green: ruff, ruff format, mypy strict, pytest 58 passed. Smoke run resolved the `car_service` config and applied an override (`tmp/s2-smoke.txt`). Migration `0002` backfills an existing business and downgrades cleanly (`tmp/s2-migration-backfill.txt`). mypy rejects a provider with the wrong signature (`tmp/s2-mypy-probe.txt`).
+**Next:** Merge PR #2, then start S-3.
 **Blockers:** None.
 **Notes:** The config file lives at `backend/verticals/car_service.yaml`, not at the repo root, so the backend container (which mounts `./backend`) and the tests can read it. Every value in it is a placeholder until Justin sends real prices, vehicle classes, hours and payment handles (see `project.md`, Needs from people).
 
