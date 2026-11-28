@@ -35,3 +35,9 @@ uv run pytest                  # needs RIDEDESK_TEST_DATABASE_URL, see .env.exam
 ```
 
 The test suite creates its own throwaway database on the server named by `RIDEDESK_TEST_DATABASE_URL`, migrates it, and drops it at the end.
+
+## Configuration
+
+Nothing about a particular business lives in code. Each business points at a **vertical**, a default config in `backend/verticals/<vertical>.yaml` (car service is the first). Its own changes are stored in the database and merged on top. The result is validated against one Pydantic schema (`backend/ridedesk/config/schema.py`), on load and before any change is saved. A bad value is reported by its path, for example `pricing.per_mile: Input should be a valid decimal`.
+
+Every external service (maps, calendar, email, SMS, payments, the LLM) sits behind an interface in `backend/ridedesk/adapters/`, with a mock that needs no keys. `RIDEDESK_<SERVICE>_PROVIDER` picks the implementation, and every implementation must pass the same contract tests in `backend/tests/contracts/`.

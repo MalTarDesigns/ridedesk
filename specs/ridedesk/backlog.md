@@ -4,16 +4,16 @@
 
 **State:** in progress
 **Updated:** 2026-11-23
-**Now:** S-1 PR #1 open, waiting for merge.
+**Now:** S-2 PR open, waiting for CI and merge. S-1 merged 11/28/2026 (PR #1).
 **Done:** Stories written from the build prompt's phases 1 to 9. Backlog approved 11/23/2026. One Notion Action Task per story, each under the RideDesk project and the parent task "RideDesk: backlog and build".
-**Next:** S-2 (vertical config schema, loader and adapter interfaces) once S-1 merges.
+**Next:** S-3 (pricing engine, availability, flags and the booking API) once S-2 merges.
 **Blockers:** S-19 is blocked on the website URL and platform (see `project.md`, Needs from people).
 **Notes:** Tickets: the Notion Action Task "RideDesk: backlog and build" tracks the project. Each story also has its own Notion Action Task, linked on its Ticket line. Stories are not mirrored as GitHub issues. Phase grouping: phase 1 is S-1 to S-3, phase 2 is S-4, phase 3 is S-5 to S-9, phase 4 is S-10, phase 5 is S-11 to S-14, phase 6 is S-15 and S-16, phase 7 is S-17, phase 8 is S-18 and S-19, and phase 9 is S-20.
 
 ## Stories
 
 ### S-1: Backend skeleton, Docker Compose and CI
-Tier: Standard · Depends on: none · Status: in progress (PR open) · Ticket: [Notion](https://app.notion.com/p/421cb0375bc881d0baf2ca682586a556) · PR: https://github.com/MalTarDesigns/ridedesk/pull/1
+Tier: Standard · Depends on: none · Status: done · Ticket: [Notion](https://app.notion.com/p/421cb0375bc881d0baf2ca682586a556) · PR: https://github.com/MalTarDesigns/ridedesk/pull/1
 Setup story.
 Outcome: A developer can clone the repo and start the API and Postgres with one command, and every later PR runs lint, type checks and tests in CI.
 
@@ -32,7 +32,7 @@ Subtasks:
 - [x] Add `.env.example`, `.gitignore` and a minimal README "Run locally" section
 
 ### S-2: Vertical config schema, loader and adapter interfaces
-Tier: Standard · Depends on: S-1 · Status: todo · Ticket: [Notion](https://app.notion.com/p/421cb0375bc881889846e1c5cab545ed) · PR: none
+Tier: Standard · Depends on: S-1 · Status: in progress (PR open) · Ticket: [Notion](https://app.notion.com/p/421cb0375bc881889846e1c5cab545ed) · PR: https://github.com/MalTarDesigns/ridedesk/pull/2
 Setup story.
 Outcome: The core reads all business rules from `verticals/car_service.yaml` plus database overrides, and every external service has an interface with a working mock.
 
@@ -43,12 +43,12 @@ Acceptance criteria:
 - S-2.AC-4: A shared contract test suite runs against each adapter implementation and passes for every mock.
 
 Subtasks:
-- [ ] Define the config schema (business profile, trip types, form fields, pricing rules, payment methods, templates, agent settings, reminder and report settings)
-- [ ] Write `verticals/car_service.yaml` with placeholder values marked as placeholders
-- [ ] Add the `business_config_overrides` table and the merge-then-validate loader
-- [ ] Define the six adapter interfaces and their mocks
-- [ ] Add a parametrized contract test suite per interface
-- [ ] Add a check that the core package never imports anything vertical-specific
+- [x] Define the config schema (business profile, trip types, form fields, pricing rules, payment methods, templates, agent settings, reminder and report settings)
+- [x] Write `verticals/car_service.yaml` with placeholder values marked as placeholders
+- [x] Add the `business_config_overrides` table and the merge-then-validate loader
+- [x] Define the six adapter interfaces and their mocks
+- [x] Add a parametrized contract test suite per interface
+- [x] Add a check that the core package never imports anything vertical-specific
 
 ### S-3: Pricing engine, availability, flags and the booking API
 Tier: Standard · Depends on: S-2 · Status: todo · Ticket: [Notion](https://app.notion.com/p/421cb0375bc88112835adb47b96c5d9f) · PR: none
