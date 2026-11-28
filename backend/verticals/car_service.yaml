@@ -1,0 +1,151 @@
+# Default configuration for a luxury car service.
+#
+# PLACEHOLDER VALUES: every price, class, hour and handle below is made up
+# so the system can run before the business sends its real details. Each
+# business overrides these from the Settings page, and `placeholder` goes
+# false once real values are in.
+placeholder: true
+
+profile:
+  name: Example Car Service
+  contact:
+    phone: "+1 555 0100"
+    email: bookings@example.com
+  hours:
+    - { day: mon, open: "06:00", close: "23:00" }
+    - { day: tue, open: "06:00", close: "23:00" }
+    - { day: wed, open: "06:00", close: "23:00" }
+    - { day: thu, open: "06:00", close: "23:00" }
+    - { day: fri, open: "06:00", close: "02:00" }
+    - { day: sat, open: "08:00", close: "02:00" }
+    - { day: sun, open: "08:00", close: "22:00" }
+  service_area: New York metro area
+  branding:
+    primary_color: "#111111"
+    accent_color: "#c9a227"
+    font_family: "Inter, system-ui, sans-serif"
+
+vehicle_classes:
+  - { key: sedan, label: Luxury sedan, passengers: 3, luggage: 3 }
+  - { key: suv, label: Luxury SUV, passengers: 6, luggage: 6 }
+  - { key: sprinter, label: Executive Sprinter, passengers: 12, luggage: 10 }
+
+trip_types:
+  - { key: airport, label: Airport transfer }
+  - { key: hourly, label: Hourly charter }
+  - { key: event, label: Special event }
+  - { key: point_to_point, label: Point to point }
+  - { key: corporate, label: Corporate account }
+
+form_fields:
+  - { key: name, label: Your name, type: text, required: true }
+  - { key: phone, label: Phone, type: phone, required: true }
+  - { key: email, label: Email, type: email, required: true }
+  - { key: trip_type, label: Trip type, type: select, required: true,
+      options: [airport, hourly, event, point_to_point, corporate] }
+  - { key: pickup, label: Pickup address, type: address, required: true }
+  - { key: dropoff, label: Drop-off address, type: address, required: false }
+  - { key: pickup_at, label: Date and time, type: datetime, required: true }
+  - { key: passengers, label: Passengers, type: number, required: true }
+  - { key: luggage, label: Bags, type: number, required: false }
+  - { key: vehicle_class, label: Vehicle, type: select, required: true,
+      options: [sedan, suv, sprinter] }
+  - { key: notes, label: Anything else we should know, type: textarea, required: false }
+
+pricing:
+  currency: USD
+  base_fare: { sedan: "65.00", suv: "85.00", sprinter: "150.00" }
+  per_mile: "3.50"
+  hourly:
+    rate: { sedan: "85.00", suv: "105.00", sprinter: "175.00" }
+    minimum_hours: 2
+  airport_flat_rates:
+    - { airport: JFK, vehicle_class: sedan, amount: "120.00" }
+    - { airport: JFK, vehicle_class: suv, amount: "150.00" }
+    - { airport: LGA, vehicle_class: sedan, amount: "100.00" }
+    - { airport: LGA, vehicle_class: suv, amount: "130.00" }
+  after_hours: { start: "23:00", end: "05:00", surcharge_percent: "20" }
+  gratuity_percent: "20"
+
+flags:
+  large_group_passengers: 7
+  last_minute_hours: 12
+  long_distance_miles: 100
+
+payment_methods:
+  - key: zelle
+    kind: manual
+    display_name: Zelle
+    instructions: Send the total by Zelle with your booking number in the memo.
+    handle: payments@example.com
+    deposit_percent: "25"
+    enabled: true
+  - key: cash_app
+    kind: manual
+    display_name: Cash App
+    instructions: Send the total by Cash App with your booking number in the note.
+    handle: "$ExampleCarService"
+    enabled: true
+  - key: venmo
+    kind: manual
+    display_name: Venmo
+    instructions: Send the total by Venmo with your booking number in the note.
+    handle: "@Example-Car-Service"
+    enabled: false
+  - key: cash
+    kind: manual
+    display_name: Cash
+    instructions: Pay your driver at the end of the ride.
+    enabled: true
+  - key: check
+    kind: manual
+    display_name: Check
+    instructions: Corporate accounts only. Make checks payable to Example Car Service.
+    enabled: false
+  - key: card
+    kind: automatic
+    display_name: Card
+    instructions: Pay securely online with the link in your confirmation.
+    instant: true
+    enabled: false
+
+templates:
+  request_received:
+    subject: "We got your request, {customer_name}"
+    body: |
+      Thanks for booking with {business_name}. We will confirm your ride
+      for {pickup_at} shortly.
+  confirmation:
+    subject: "Your ride on {pickup_at} is confirmed"
+    body: |
+      Hi {customer_name}, your {vehicle_label} is booked for {pickup_at}
+      from {pickup}. Estimated total: {quote_total}.
+
+      {payment_instructions}
+
+      Booking number: {booking_number}
+  reminder:
+    subject: "Reminder: your ride tomorrow at {pickup_time}"
+    body: |
+      Hi {customer_name}, this is a reminder of your ride tomorrow at
+      {pickup_time} from {pickup}. Reply to this message if anything changed.
+  driver_assignment:
+    subject: "Ride {booking_number}: {pickup_at}"
+    body: |
+      Pickup {pickup_at} at {pickup}. Passenger {customer_name},
+      {customer_phone}, {passengers} people. Notes: {notes}
+
+agent:
+  tone: warm, polished and brief, like a concierge
+  instructions: |
+    You help a luxury car service turn messy booking requests into booking
+    fields. Never set or suggest a price. Report anything missing or unclear.
+  suggestable_flags: [special_request, multi_stop, wedding, child_seat, quote_may_change]
+  actions_needing_approval: [send_reply, send_confirmation, send_reminder]
+
+reminders:
+  hours_before: 24
+  auto_send: false
+
+reports:
+  metrics: [bookings, revenue, by_trip_type, by_payment_method, busiest_days, response_time, rides_per_driver]

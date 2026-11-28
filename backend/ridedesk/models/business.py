@@ -15,3 +15,5 @@ class Business(TimestampMixin, Base):
     slug: Mapped[str] = mapped_column(String(64), unique=True)
     name: Mapped[str] = mapped_column(String(200))
     timezone: Mapped[str] = mapped_column(String(64))
+    # Which verticals/<vertical>.yaml supplies this business's default config.
+    vertical: Mapped[str] = mapped_column(String(64))

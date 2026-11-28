@@ -5,14 +5,14 @@ from sqlalchemy import create_engine, inspect
 from ridedesk.db import Base
 
 
-def test_first_migration_creates_businesses(database_url: str) -> None:
+def test_migrations_create_businesses(database_url: str) -> None:
     engine = create_engine(database_url)
     try:
         columns = {c["name"] for c in inspect(engine).get_columns("businesses")}
     finally:
         engine.dispose()
 
-    assert columns == {"id", "slug", "name", "timezone", "created_at", "updated_at"}
+    assert columns == {"id", "slug", "name", "timezone", "vertical", "created_at", "updated_at"}
 
 
 def test_models_match_migrations(database_url: str) -> None:
