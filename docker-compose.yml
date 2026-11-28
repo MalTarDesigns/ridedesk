@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ridedesk
+      POSTGRES_PASSWORD: ridedesk
+      POSTGRES_DB: ridedesk
+    # Published on localhost only, for running the tests outside Docker.
+    # Set RIDEDESK_DB_PORT if 5432 is already taken by a local Postgres.
+    ports:
+      - "127.0.0.1:${RIDEDESK_DB_PORT:-5432}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      # Check over TCP: during first-time init the image runs a socket-only
+      # temporary server that would otherwise pass this check too early.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U ridedesk -d ridedesk"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+
+  backend:
+    build: ./backend
+    restart: on-failure
+    environment:
+      RIDEDESK_DATABASE_URL: postgresql+psycopg://ridedesk:ridedesk@db:5432/ridedesk
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/v1/health')"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  db-data:
